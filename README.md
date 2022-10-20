@@ -7,8 +7,6 @@ The idea is to use smart [advanced Pubmed queries](https://pubmed.ncbi.nlm.nih.g
 See wordcloud_settings.json for the settings used to generate the output below.
 ### Final output
 ![example wordcloud](example/wordcloud.png)
-### Mask
-![used mask](example/microscope.jpg)
 
 ## Used libraries
 - [Biopython](https://biopython.org/): for accessing Pubmed and fetching publications
