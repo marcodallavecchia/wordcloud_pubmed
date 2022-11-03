@@ -1,7 +1,6 @@
 # Import dependencies
 from Bio import Entrez
 import re
-from matplotlib import pyplot as plt
 import matplotlib as mp
 from wordcloud import WordCloud
 from PIL import Image
@@ -26,7 +25,7 @@ def get_ids_from_query(query, result_number, email):
 
 def fetch_details(id_list, email):
     """
-    Use found IDs to retrieve full text from Pubmed
+    Use found IDs to retrieve abstracts and other info from Pubmed
     """
     ids = ','.join(id_list)
     Entrez.email = email
@@ -154,8 +153,7 @@ def user_interface():
 
 # Start of program
 if __name__ == '__main__':
-    import_json = import_params()
-    if import_json:
+    if import_params():
         with open('wordcloud_settings.json') as json_file:
             params_dict = json.load(json_file)
     else:
@@ -171,13 +169,13 @@ if __name__ == '__main__':
     print('Fetched papers from Pubmed')
 
     # Read abstracts and image mask
-    abs = extract_abstracts('papers.txt')
+    abstracts = extract_abstracts('papers.txt')
     if params_dict['mask_name']:
         mask = np.asarray(Image.open(params_dict['mask_name']))
-    else: mask = None
+    else: mask = params_dict['mask_name']
     # Create wordcloud
-    wordcloud = WordCloud(mask=mask, background_color=params_dict['bg_color'], mode="RGBA", # uncomment this for transparent file
-                        colormap=params_dict['colormap'], width=800, height=400).generate(str(abs))
+    wordcloud = WordCloud(mask=mask, background_color=params_dict['bg_color'], mode="RGBA",
+                        colormap=params_dict['colormap'], width=800, height=400).generate(str(abstracts))
     # Export wordcloud
     wordcloud.to_file('wordcloud.png')
     # Export used params
