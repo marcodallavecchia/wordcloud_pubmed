@@ -7,4 +7,3 @@ dependencies:
   - python=3.8
   - matplotlib
   - biopython
-prefix: /home/dallavem/miniconda3/envs/biopython-wordcloud-env
